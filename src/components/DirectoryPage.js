@@ -66,7 +66,7 @@ class Directory extends Component{
   }
   // Check to see the current state to sort 
   if (this.state.isSorted) {
-      this.state.filteredEmployees.sort(compareZA);
+      this.state.filteredEmployees.sort(compareAZ);
       this.setState({
           isSorted: false
       })
@@ -185,7 +185,7 @@ class Directory extends Component{
         <div className={"container-fluid"}>
           <div className={"table-responsive"}>
             <table className="table">
-              <thead className="thead-dark">
+              <thead className="thead-light">
                 <tr>
                   <th>Image</th>
                   <th>First Name<i onClick={this.handleSortFirst} className={"fa fa-fw fa-sort"}></i></th>
