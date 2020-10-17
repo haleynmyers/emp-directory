@@ -1,5 +1,5 @@
 import React from "react";
-import Directory from "./pages/DirectoryPage";
+import Directory from "./components/DirectoryPage";
 
 function App() {
   return (
