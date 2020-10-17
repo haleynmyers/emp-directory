@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import API from "../utilities/API";
 import Container from "./Container";
 import Hero from "./Hero";
-import SearchForm from "./SearchForm";
 import Results from "./Results";
 
 class Directory extends Component{
@@ -30,17 +29,14 @@ class Directory extends Component{
 
   // input change in search bar
   handleInput = (event) => {
-    event.preventDefault();
-    const value = event.target.value.toLowerCase();
-    this.setState({ 
-      search: event.target.value,
-      //filters employee array by searched term
-      filtered: this.state.employees.filter(emp => {
-        const name = emp.first.toLowerCase().trim() + emp.last.toLowerCase().trim();
-        return (name.includes(value));
-      })
-     });
-  }
+    this.setState({ search: event.target.value });
+    //Use the filter method to filter employees according to what user types in 
+    const filtered = this.state.employees.filter((employee) => {
+        return (employee.name.first.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1);
+    })
+    // Set the state of filterEmployees 
+    this.setState({ filteredEmployees: filtered })
+}
 
   // Declare a function that handle the sort by first name
   handleSortFirst = () => {
@@ -184,13 +180,12 @@ class Directory extends Component{
 
     return (
       <Container>
-        <Hero/>
-        <SearchForm handleInput={this.handleInput}
-        value={this.state.search} />
+        <Hero handleInput={this.handleInput}
+        value={this.state.search}/>
         <div className={"container-fluid"}>
           <div className={"table-responsive"}>
             <table className="table">
-              <thead>
+              <thead className="thead-dark">
                 <tr>
                   <th>Image</th>
                   <th>First Name<i onClick={this.handleSortFirst} className={"fa fa-fw fa-sort"}></i></th>
