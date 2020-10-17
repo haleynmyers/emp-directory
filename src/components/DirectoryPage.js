@@ -32,7 +32,9 @@ class Directory extends Component{
     this.setState({ search: event.target.value });
     //Use the filter method to filter employees according to what user types in 
     const filtered = this.state.employees.filter((employee) => {
-        return (employee.name.first.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1);
+        return (employee.name.first.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1
+        || employee.name.last.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1);
+  
     })
     // Set the state of filterEmployees 
     this.setState({ filteredEmployees: filtered })
@@ -66,7 +68,7 @@ class Directory extends Component{
   }
   // Check to see the current state to sort 
   if (this.state.isSorted) {
-      this.state.filteredEmployees.sort(compareAZ);
+      this.state.filteredEmployees.sort(compareZA);
       this.setState({
           isSorted: false
       })
@@ -139,9 +141,9 @@ class Directory extends Component{
       const locA = a.location.state.toLowerCase();
       const locB = b.location.state.toLowerCase();
       let comparison = 0;
-      if (locA > locB) {
+      if (locB > locA) {
         comparison = 1;
-      } else if (locA < locB) {
+      } else if (locB < locA) {
         comparison = -1;
       }
       return comparison;
@@ -182,8 +184,8 @@ class Directory extends Component{
       <Container>
         <Hero handleInput={this.handleInput}
         value={this.state.search}/>
-        <div className={"container-fluid"}>
-          <div className={"table-responsive"}>
+        <div className="container-fluid">
+          <div className="table-responsive">
             <table className="table">
               <thead className="thead-light">
                 <tr>
